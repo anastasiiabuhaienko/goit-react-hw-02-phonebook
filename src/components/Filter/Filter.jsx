@@ -3,7 +3,7 @@
 const Filter = ({ value, onChange }) => (
 
     <label>
-        Find contacts by name or number
+        Find contacts by name
         <input
             type="text"
             value={value}

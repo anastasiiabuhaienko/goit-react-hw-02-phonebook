@@ -42,11 +42,11 @@ export const App = () =>  {
     setState({...state, filter: value });
   };
 
-  const normalizedFilter = state.filter.toLocaleLowerCase();
+  const normalizedFilter = state.filter.toLowerCase();
 
   const filteredContacts = state.contacts.filter((contact) => {
-    return contact.name.toLocaleLowerCase().includes(normalizedFilter) ||
-      contact.number.toLocaleLowerCase().includes(normalizedFilter)
+    return contact.name.toLowerCase().includes(normalizedFilter) ||
+      contact.number.toLowerCase().includes(normalizedFilter)
   });
 
 
@@ -83,4 +83,3 @@ export const App = () =>  {
       </>
     );
 };
-
