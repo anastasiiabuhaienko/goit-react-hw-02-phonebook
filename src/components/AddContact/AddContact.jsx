@@ -1,33 +1,34 @@
 import PropTypes from 'prop-types';
-import { useState } from "react";
 import React from 'react';
+import { Component } from 'react';
 import css from './AddContact.module.css';
 
 
-const AddContact = ({onAddContact}) => {
-
-    const [state, setState] = useState({
+class AddContact extends Component {
+    state = {
         name: '',
         number: '',
-    });
-
-
-
-  const handleChange = event => {
-    const { name, value } = event.currentTarget;
-    setState((prevValue) => ({...prevValue, [name]: value }));
-  };
-
-    
-    const handleSubmit = event => {
-        event.preventDefault();
-        onAddContact(state.name, state.number);
     };
 
 
+  handleChange = event => {
+    const { name, value } = event.currentTarget;
+    this.setState({ [name]: value });
+  };
+  
+  handleSubmit = event => {
+    event.preventDefault();    
+    this.props.onSubmit(this.state.name, this.state.number);
+    this.setState({ name: '', number: '' }); 
+  };
 
+
+    render() {
+    
         return (
-            <form className={css.form} onSubmit={handleSubmit}>
+            <form
+                className={css.form}
+                onSubmit={this.handleSubmit}>
                 <label>
                     Name
                     <input
@@ -35,8 +36,8 @@ const AddContact = ({onAddContact}) => {
                         name="name"
                         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                        value={state.name}
-                        onChange={handleChange}
+                        value={this.state.name}
+                        onChange={this.handleChange}
                         required
                     />
                 </label>
@@ -47,8 +48,8 @@ const AddContact = ({onAddContact}) => {
                         name="number"
                         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                        value={state.number}
-                        onChange={handleChange}
+                        value={this.state.number}
+                        onChange={this.handleChange}
                         required
                         
                     />      
@@ -60,6 +61,8 @@ const AddContact = ({onAddContact}) => {
                     >Add contact</button>
             </form>
         );
+}
+        
 };
 
 export default AddContact;
